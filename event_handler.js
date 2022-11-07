@@ -31,6 +31,7 @@ class Event_Handler{
 
     keyboard_input(key){
         if (!this.display.load_ready){
+            getAudioContext().resume()
             if (this.display.loading >= 100){
                 this.display.ready()
             }
