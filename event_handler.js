@@ -31,7 +31,9 @@ class Event_Handler{
 
     keyboard_input(key){
         if (!this.display.load_ready){
-            this.display.ready()
+            if (this.display.loading >= 100){
+                this.display.ready()
+            }
             return 0;
         }
 

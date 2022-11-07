@@ -8,6 +8,8 @@ function setup(){
     rectMode(CENTER)
     imageMode(CENTER)
     
+    getAudioContext().resume()
+
     event_handler = new Event_Handler();
 }
 
