@@ -30,7 +30,10 @@ class Event_Handler{
     }
 
     keyboard_input(key){
-        this.display.ready()
+        if (!this.display.load_ready){
+            this.display.ready()
+            return 0;
+        }
 
         if (this.take_user_keyboard){
             if (key == "Backspace"){

@@ -20,7 +20,7 @@ class Character_Manager{
     initiate_intro(text_box, cult_stats, choice_display, image_manager){
         // To test out your character, replace "Edlith" with your character's name
         // Example: this.character_manager.set_character_focus(text_box, "Character Name Here!", cult_stats)
-        this.set_character_focus(text_box, "Ryklee", cult_stats, choice_display, image_manager)
+        this.set_character_focus(text_box, "Edlith", cult_stats, choice_display, image_manager)
     }
 
     update_text(text_box, choice_display, cult_stats, image_manager){
