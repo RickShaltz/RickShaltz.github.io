@@ -30,7 +30,8 @@ class Event_Handler{
     }
 
     keyboard_input(key){
-        getAudioContext().resume();
+        this.display.ready()
+
         if (this.take_user_keyboard){
             if (key == "Backspace"){
                 this.user_input = this.user_input.slice(0,-1)
