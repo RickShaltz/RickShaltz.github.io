@@ -18,6 +18,7 @@ class Character_Manager{
     }
 
     initiate_intro(text_box, cult_stats, choice_display, image_manager){
+        console.log("EDLITH")
         // To test out your character, replace "Edlith" with your character's name
         // Example: this.character_manager.set_character_focus(text_box, "Character Name Here!", cult_stats)
         this.set_character_focus(text_box, "Edlith", cult_stats, choice_display, image_manager)
