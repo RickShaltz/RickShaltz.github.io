@@ -36,6 +36,7 @@ class Character_Manager{
             this.soundtrack_playing = this.characters[this.character_focus].audio
             this.soundtrack_playing.setVolume(0.05)
             this.soundtrack_playing.play()
+            getAudioContext().resume();
         }
     }
 
