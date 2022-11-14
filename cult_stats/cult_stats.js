@@ -4,7 +4,7 @@ class Cult_Stats{
             "Encounters": 0,
             "Followers" : 0,
             "Popularity" : 0,
-            "Gold" : 100
+            "Gold" : 0
         }
 
         this.cult_stats_display = new Cult_Stats_Display(10, windowHeight/2, 20, 50)// mostly for dev log
