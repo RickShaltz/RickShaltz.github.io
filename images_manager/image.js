@@ -7,12 +7,17 @@ class Image_Display {
         this.fade = 0
         this.fade_level = 5
 
-        this.set_location(image_location, null, null)
+        if (this.image != null){
+            this.set_location(image_location, null, null)
+        }
     }
 
-    show(){
-        tint(255, 255, 255, this.fade)
-        image(this.image, this.x, this.y)
+    show(event_handler){
+        if (this.image != null){
+            tint(255, 255, 255, this.fade)
+            image(this.image, this.x + event_handler.shake.x, this.y + event_handler.shake.y)
+            tint(255, 255, 255)
+        }
     }
 
     update(){

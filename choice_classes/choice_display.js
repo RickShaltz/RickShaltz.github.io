@@ -7,13 +7,23 @@ class Choice_Display{
 
         this.choices = [];
         var count = 0
+        var choice_length = 0
+
+        for (var i in choices_hashmap){
+            var dialogue_obj = new Dialogue(choices_hashmap[i])
+
+            if (dialogue_obj.check_requirements(cult_stats)){
+                choice_length ++
+            }
+        }
+
         for (var i in choices_hashmap){
             var dialogue_obj = new Dialogue(choices_hashmap[i])
 
             if (dialogue_obj.check_requirements(cult_stats)){
                 count ++
                 var x, y;
-                var num_choices = Object.keys(choices_hashmap).length
+                var num_choices = choice_length
 
                 x = windowWidth/2
                 y = windowHeight/3 + count*90 - 2*num_choices*90/3
@@ -30,13 +40,16 @@ class Choice_Display{
         }
     }
 
-    check_interaction(mouse_x, mouse_y, text_box, character_manager, cult_stats, image_manager){
+    check_interaction(mouse_x, mouse_y, event_handler){
+        var character_manager = event_handler.character_manager
+
         for (var i = 0; i < this.choices.length; i ++){
             if (this.choices[i].check_clicked(mouse_x, mouse_y)){
                 character_manager.set_character_focus_dialogue_path(this.choices[i].get_if_triggered_text(), 0, 
-                text_box, character_manager, cult_stats, image_manager)
+                event_handler)
 
                 this.choices = []
+                return 0
             }
         }
     }

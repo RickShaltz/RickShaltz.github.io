@@ -17,6 +17,8 @@ Character Rules (please follow these when writing your characters!):
 
 Upcoming features to add:
 - add tutorial for reactions
+- make cooking game intro sequence
+- make cooking game ending and score
 
 Bugs:
 
@@ -24,3 +26,5 @@ V 0.2 Additions:
 - Reactions on each character [ADDED!]
 - ability to set Speaker
 - ability to change Images
+- cooking minigame
+- icons added

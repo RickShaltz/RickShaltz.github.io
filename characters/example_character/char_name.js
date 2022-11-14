@@ -61,7 +61,9 @@ class Character_Name extends Character{ // <- change Character_Name to your char
             "(Choice)example_choice"],
 
             "last_example_dialogue_path": ["Either way you suck!",
-            "(End)last_example_dialogue_path"] // <- since there is currently no more for this character, put up a loop.
+            "(End)end"],
+
+            "<no_talk:is:1>end": [""], // end of interactions, this can never be reached
         }
     }
 

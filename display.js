@@ -4,7 +4,14 @@ class Display {
         this.load_ready = false
     }
 
-    show(user_input, text_box, cult_stats, character_manager, choice_display, image_manager, event_handler){
+    show(event_handler){ // user_input, text_box, cult_stats, character_manager, choice_display, image_manager,
+        var user_input = event_handler.user_input
+        var text_box = event_handler.text_box
+        var cult_stats = event_handler.cult_stats
+        var character_manager = event_handler.character_manager
+        var choice_display = event_handler.choice_display
+        var image_manager = event_handler.image_manager
+
         if (this.loading < 100){
             fill(255, 255, 255)
             textSize(40)
@@ -17,8 +24,10 @@ class Display {
         else if (event_handler.take_user_keyboard){
             this.show_name_selection(user_input, event_handler.message)
         } 
+
+        // Actual in game display
         else if (this.load_ready){
-            image_manager.show()
+            image_manager.show(event_handler)
             character_manager.show(text_box)
             cult_stats.show()
             choice_display.show()

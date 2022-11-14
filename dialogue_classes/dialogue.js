@@ -47,9 +47,9 @@ class Dialogue{
         for (var i = 0; i < this.requirements.length; i ++){
             var requirement = this.requirements[i]
 
-            // convert string to float
-            if (!isNaN(parseFloat(requirement))){
-                requirement = parseFloat(requirement)
+            // convert string to float  
+            if (!isNaN(parseFloat(requirement.value))){
+                requirement.value = parseFloat(requirement.value)
             }
 
             if (requirement.operator == "add"){
@@ -62,7 +62,7 @@ class Dialogue{
                 cult_stats.stats[requirement.variable] = requirement.value
             } else {
                 if (!(requirement.variable in cult_stats.stats)){
-                    if ( requirement.value <= 0){
+                    if ( requirement.value <= 0 || requirement.operator == "not"){
                         return true
                     } else {
                         return false
@@ -81,6 +81,11 @@ class Dialogue{
                         break;
                     case "is":
                         if (cult_stats.stats[requirement.variable] != requirement.value){
+                            return false
+                        }
+                        break;
+                    case "not":
+                        if (cult_stats.stats[requirement.variable] == requirement.value){
                             return false
                         }
                         break;

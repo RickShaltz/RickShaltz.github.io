@@ -73,7 +73,7 @@ class Ryklee extends Character{ // <- change Character_Name to your character's 
 
             "hot_outside": [
                 "Oh, I didn't notice you!",
-                "It... it is quite irrating wearing the armour, yes. But it'll protect you from all sorts of dangers!",
+                "It... it is quite irritating wearing the armour, yes. But it'll protect you from all sorts of dangers!",
                 "On the way here, I was attacked by a tree that jumped into my vision! If I wasn't wearing this armour, I would've been skewered!",
                 "Now, where was I? Right. The map.",
                 "(Go)introduce_ryklee"
@@ -148,6 +148,14 @@ class Ryklee extends Character{ // <- change Character_Name to your character's 
                 "(Choice)guest"
             ],
 
+            "yes_cookies": [
+                "<ryklee_relations:add:3>Cookies?",
+                "{Speaker:}She nibbles on the cookies, quickly devouring one of them.",
+                "Thanks, that was rather nice.",
+                "Do you have any other surprises to offer me?",
+                "(Choice)guest"
+            ],
+
             "knuckle_sandwhich": [
                 "Thanks for the offer but no thanks, I'm not hungry right now.",
                 "(Go)ryklee_end_1"
@@ -161,8 +169,8 @@ class Ryklee extends Character{ // <- change Character_Name to your character's 
             
             "rock_on_ground": [
                 "Is... is that a gift for me?",
-                "{Speaker:}You nod your head",
-                "{Speaker:Ryklee}Wow! Nobody's ever given me a gift! Thank you so much!",
+                "{Speaker:}You nod your head.",
+                "<ryklee_relations:add:5>{Speaker:Ryklee}Wow! Nobody's ever given me a gift! Thank you so much!",
                 "{Speaker:}Ryklee jumps up in down in happiness as she pockets the rock.",
                 "{Speaker:Ryklee}(Go)ryklee_end_1"
             ],
@@ -173,7 +181,7 @@ class Ryklee extends Character{ // <- change Character_Name to your character's 
             ],
 
             "no_visit": [
-                "Oh.",
+                "<ryklee_relations:add:-5>Oh.",
                 "Hey, look... I'm sorry if I disturbed you. I just... don't talk to people that often.",
                 "I only meet demons and... they're usually dead by the end of our interaction.",
                 "Sorry about that. I won't bother you again.",
@@ -181,7 +189,7 @@ class Ryklee extends Character{ // <- change Character_Name to your character's 
             ],
 
             "yes_visit": [
-                "Really?",
+                "<ryklee_relations:add:5>Really?",
                 "Well, I'll make sure to take you up on that offer!",
                 "If you need any demons slayed, just call me up!",
                 "See you soon!",

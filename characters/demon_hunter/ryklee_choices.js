@@ -46,7 +46,8 @@ class Ryklee_Choices extends Character_Choices{ // <- Change Char_Name to your c
                 break;
             case "tea":
                 hash = {
-                    "No" : "no_tea"
+                    "No" : "no_tea",
+                    "No, but I have cookies": "have_cookies"
                 }
                 break;
             case "guest":

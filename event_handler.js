@@ -11,8 +11,16 @@ class Event_Handler{
         this.choice_display = new Choice_Display()
         this.display = new Display()
         this.image_manager = new Image_Manager()
+        
+        this.minigame_manager = new Minigame_Manager()
+        //this.minigame_manager.set_active_minigame()
 
         this.intro_sequence_initiated = false
+
+        this.shake = {
+            x: 0,
+            y: 0
+        }
     }
 
     next_event(){
@@ -21,11 +29,11 @@ class Event_Handler{
 
     initiate_intro_event(){
         this.intro_sequence_initiated = true
-        this.character_manager.initiate_intro(this.text_box, this.cult_stats, this.choice_display, this.image_manager)
+        this.character_manager.initiate_intro(this)
     }
 
     mouse_input(mouse_x, mouse_y){
-        this.choice_display.check_interaction(mouse_x, mouse_y, this.text_box, this.character_manager, this.cult_stats, this.image_manager)
+        this.choice_display.check_interaction(mouse_x, mouse_y, this)
         this.cult_stats.check_clicked(mouse_x, mouse_y)
     }
 
@@ -57,22 +65,39 @@ class Event_Handler{
         if (this.take_user_keyboard){
             this.cult_stats.stats[this.stat_to_change] = this.user_input
             this.take_user_keyboard = false
-            this.character_manager.advance_focus_character(this.text_box, this.choice_display, this.cult_stats, 
-                this.character_manager, this.image_manager, this)
+            this.character_manager.advance_focus_character(this)
         }
     }
 
     trigger_space(){
-        this.character_manager.advance_focus_character(this.text_box, this.choice_display, this.cult_stats, this.image_manager, this)
+        if(this.minigame_manager.active_minigame == null){
+            this.character_manager.advance_focus_character(this)
+        }
     }
 
     refresh_screen(){
-        this.display.show(this.user_input, this.text_box, this.cult_stats, this.character_manager, this.choice_display,
-            this.image_manager, this)
-        this.cult_stats.update()
-        this.image_manager.update()
-        this.display.update_loading()
-        this.update()
+        if (this.minigame_manager.active_minigame == null){
+            this.display.show(this)
+            this.cult_stats.update()
+            this.image_manager.update()
+            this.display.update_loading()
+            this.update()
+        } else {
+            this.minigame_manager.show()
+            var returned = this.minigame_manager.update()
+            if (returned != null){
+                this.minigame_manager = new Minigame_Manager()
+                var stat_to_change = returned.score.slice(0, returned.score.indexOf(":"))
+                var stat = returned.score.slice(returned.score.indexOf(":") + 1, returned.score.length)
+                this.cult_stats.stats[stat_to_change] = stat
+
+                this.character_manager.run_dialogue(this, returned.dialogue_after)
+            }
+        }
+    }
+
+    set_active_minigame(minigame, dialogue_after){
+        this.minigame_manager.set_active_minigame(minigame, dialogue_after)
     }
 
     allow_keyboard_input(message, stat_to_change){
@@ -85,5 +110,16 @@ class Event_Handler{
         if (this.display.loading == 100 && !this.intro_sequence_initiated){
             this.initiate_intro_event()
         }
+
+
+        let shake = this.cult_stats.stats['shake']
+        if (shake != null){
+            this.shake.x = this.randint(-shake, shake)
+            this.shake.y = this.randint(-shake, shake)
+        }
+    }
+
+    randint(min, max) {
+        return Math.floor(Math.random() * (max - min) ) + min;
     }
 }

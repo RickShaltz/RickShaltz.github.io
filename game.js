@@ -9,6 +9,7 @@ function setup(){
     imageMode(CENTER)
     
     getAudioContext().resume()
+    frameRate(60)
 
     event_handler = new Event_Handler();
 }

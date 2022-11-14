@@ -13,7 +13,7 @@ class Tut_Character extends Character{
     set_possible_dialogue(){
         this.dialogue_path = new Dialogue("intro")
         this.possible_dialogue = {
-            "intro": ["{Speaker:Edlith}{Edlith:middle}Wakey wakey there, sleepy head. (Press spacebar to proceed)", 
+            "intro": ["{Speaker:Edlith}{Edlith:middle}Wakey wakey there, sleepy head. (Press spacebar to proceed)",
             "You might be wondering where you are.",
             "Where is your rolling red mansion? Your glorious trophies from your hundreds of years as a High Demon General?",
             "Where are your glamorous pecks? Sadly, those have all been stripped from you.",
@@ -60,7 +60,7 @@ class Tut_Character extends Character{
             "(Choice)who"],
 
             "introduce_edlith": ["Edlith Redmin, at your service, my lord. I'm your steward.",
-            "When you were cast of hell and stripped of your rank, the rest of your entourage abandoned you.",
+            "When you were cast out of hell and stripped of your rank, the rest of your entourage abandoned you.",
             "But I chose to stay. After all, how could I betray the demon that rescued me?",
             "(Choice)edlith_stayed"],
 
@@ -71,7 +71,7 @@ class Tut_Character extends Character{
             "{teary_edlith:Edlith}But there is no time for that!",
             "(Go)edlith_final_1"],
 
-            "stern_stay": ["I know you have high standards for stewards. I hope I can fulfill them.",
+            "stern_stay": ["<edlith_relations:add:-1>I know you have high standards for stewards. I hope I can fulfill them.",
             "You have my undying loyalty.",
             "(Go)edlith_final_1"],
 
@@ -94,8 +94,32 @@ class Tut_Character extends Character{
             "I do not understand your wisdom at the moment, but I'm sure your plan will come to fruition! I shall do your bidding at once.",
             "<advertisement_strategy:set:friendship>(Go)edlith_leaves"],
 
-            "edlith_leaves": ["Right away, sir!",
-            "(End)edlith_intro_2"],
+            "edlith_leaves": ["Before I leave to follow your orders, please take note of your cult's gold count, popularity, and follower count.",
+            "Sir, I noticed that you are lacking on funds. Fear not, for I've saved up for a few decades working as your steward!",
+            "Please accept my humble offering of 100 gold coins, my life savings.",
+            "(Choice)edlith_gold"],
+
+            "accept_gold": [
+                "<Gold:add:100>Thank you, sir. You are most kind.",
+                "(Go)edlith_finally_leaves"
+            ],
+
+            "decline_gold": [
+                "<Popularity:add:5>{Edlith:teary_edlith}Such kind words... My lord, you are the greatest demon I've ever met.",
+                "{teary_edlith:Edlith}(Go)edlith_finally_leaves"
+            ],
+
+            "edlith_finally_leaves": [
+                "Farewell, my lord. I will go advertise the cult now.",
+                "The first few visitors should be arriving soon.",
+                "(End)edlith_intro_2"
+            ],
+
+            "take_gold": [
+                "<Gold:add:120>I- right... Of course sir. Please, take the 20 gold pieces I had saved up for my daughter.",
+                "<edlith_relations:add:-10>I... I'll be going now.",
+                "(End)edlith_intro_2"
+            ],
 
             "<no_talk:is:1>edlith_intro_2": [""], // end of Edlith interactions so far
 

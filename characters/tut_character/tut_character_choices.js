@@ -60,6 +60,13 @@ class Tut_Character_Choices extends Character_Choices{
                     "Secretly hand out invitations with the promise of free cookies": "advertisement_secret_cookies"
                 }
                 break;
+            case "edlith_gold":
+                hash = {
+                    "Thank you. I will return it as soon as I can." : "accept_gold",
+                    "I cannot accept this. You worked hard for that money.": "decline_gold",
+                    "Give me everything you got.": "take_gold"
+                }
+                break;
         }
         choice_display.set_choices(hash, cult_stats)
     }

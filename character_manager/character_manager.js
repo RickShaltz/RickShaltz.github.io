@@ -10,6 +10,9 @@ class Character_Manager{
     set_up_hashmap(){
         this.characters['Edlith'] = new Tut_Character()
         this.characters['Ryklee'] = new Ryklee()
+        this.characters['Hodo'] = new Hodo()
+        this.characters['Kithan'] = new Kithan()
+        this.characters['Pollen'] = new Pollen()
         this.characters[""] = new Transition()
 
         // add your character here!
@@ -17,14 +20,14 @@ class Character_Manager{
         // Note: this must be very precise. Make sure your character name and class name matches up!
     }
 
-    initiate_intro(text_box, cult_stats, choice_display, image_manager){
+    initiate_intro(event_handler){
         // To test out your character, replace "Edlith" with your character's name
         // Example: this.character_manager.set_character_focus(text_box, "Character Name Here!", cult_stats)
-        this.set_character_focus(text_box, "Edlith", cult_stats, choice_display, image_manager)
+        this.set_character_focus("Edlith", event_handler)
     }
 
-    update_text(text_box, choice_display, cult_stats, image_manager){
-        this.characters[this.character_focus].set_dialogue(text_box, choice_display, cult_stats, this, image_manager)
+    update_text(event_handler){
+        this.characters[this.character_focus].set_dialogue(event_handler)
     }
 
     update_soundtrack(){
@@ -36,40 +39,46 @@ class Character_Manager{
             this.soundtrack_playing = this.characters[this.character_focus].audio
             this.soundtrack_playing.setVolume(0.05)
             this.soundtrack_playing.play()
+            this.soundtrack_playing.loop()
         }
     }
 
-    meet_next_character(text_box, choice_display, cult_stats, image_manager){
-        var randomCharacter = "";
+    meet_next_character(event_handler){
+        var random_character = "";
 
-        while (randomCharacter == ""){
-            randomCharacter = this.randomValueOf(this.characters).name
+        while (random_character == ""){
+            random_character = this.randomValueOf(this.characters).name
         }
 
-        this.set_character_focus_reaction(text_box, randomCharacter, choice_display, cult_stats, image_manager)
+        this.set_character_focus_reaction(random_character, event_handler)
     }
 
-    set_character_focus_reaction(text_box, character_name, choice_display, cult_stats, image_manager){
+    set_character_focus_reaction(character_name, event_handler){
+        var cult_stats = event_handler.cult_stats
         this.character_focus = character_name
         this.characters[this.character_focus].update_reactions(cult_stats)
-        this.update_text(text_box, choice_display, cult_stats, image_manager)
+        this.update_text(event_handler)
         this.update_soundtrack()
     }
 
-    set_character_focus(text_box, character_name, choice_display, cult_stats, image_manager){
+    set_character_focus(character_name, event_handler){
         this.character_focus = character_name
-        this.update_text(text_box, choice_display, cult_stats, image_manager)
+        this.update_text(event_handler)
         this.update_soundtrack()
     }
 
-    set_character_focus_dialogue_path(dialogue_path, dialogue_number, text_box, choice_display, cult_stats, image_manager){
+    set_character_focus_dialogue_path(dialogue_path, dialogue_number, event_handler){
         this.characters[this.character_focus].set_dialogue_path(dialogue_path)
         this.characters[this.character_focus].dialogue_number = dialogue_number
-        this.update_text(text_box, choice_display, cult_stats, image_manager)
+        this.update_text(event_handler)
     }
 
-    advance_focus_character(text_box, choice_display, cult_stats, image_manager, event_handler){
-        this.characters[this.character_focus].next_dialogue(text_box, choice_display, cult_stats, this, image_manager, event_handler)
+    run_dialogue(event_handler, dialogue){
+        this.characters[this.character_focus].set_dialogue(event_handler, dialogue)
+    }
+
+    advance_focus_character(event_handler){
+        this.characters[this.character_focus].next_dialogue(event_handler)
     }
 
     show(text_box){

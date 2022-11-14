@@ -1,6 +1,7 @@
 class Image_Manager{
     constructor(){
         this.images = new Map()
+        this.images["background"] = new Image_Display()
         this.fade_out = false
     }
 
@@ -8,14 +9,18 @@ class Image_Manager{
         this.images[image_name] = new Image_Display(image, image_location, image_name)
     }
 
+    set_background(image){
+        this.images["background"] = new Image_Display(image, "middle", "background")
+    }
+
     change_location(previous_location, new_location){
         this.images[new_location] = this.images[previous_location];
         delete this.images[previous_location]
     }
 
-    show(){
+    show(event_handler){
         for (var image in this.images){
-            this.images[image].show()
+            this.images[image].show(event_handler)
         }
     }
 
@@ -35,7 +40,9 @@ class Image_Manager{
 
     fade_images(){
         for (var image in this.images){
-            this.images[image].fade_level = -5
+            if (this.images[image].name != "background"){
+                this.images[image].fade_level = -5
+            }
         }
 
         this.fade_out = true
