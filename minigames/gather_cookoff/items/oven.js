@@ -1,4 +1,6 @@
-class Oven extends Item {
+import { Item } from "./item.js"
+
+export class Oven extends Item {
     constructor (x, y){
         super("Oven", x, y, 120, 80, 0, loadImage("assets/images/cooking_images/furnace.png"))
         this.collectable = false
@@ -11,7 +13,7 @@ class Oven extends Item {
 
     check_collision(entities, ingredient_order){
         for (var i = entities.length-1; i >= 0; i --){
-            if (this.intersects(entities[i]) && entities[i].name == "Bowl"){
+            if (entities[i] != null && this.intersects(entities[i]) && entities[i].name == "Bowl"){
                 if (ingredient_order.verify_recipe(entities[i])){
                     entities[i].inventory = []
                 }

@@ -1,4 +1,6 @@
-class Cooking_Bowl extends Item {
+import { Item } from "./item.js"
+
+export class Cooking_Bowl extends Item {
     constructor(x, y){
         super("Bowl", x, y, 120, 80, 0, loadImage("assets/images/cooking_images/bowl.png"))
         this.inventory = []
@@ -15,9 +17,9 @@ class Cooking_Bowl extends Item {
     }
 
     check_collision(entities, ingredient_order){
-        if (this.game_time - this.stunned_time > 50){
+        if (this.game_time - this.stunned_time > 500 || this.stunned_time == 0){
             for (var i = entities.length-1; i >= 0; i --){
-                if (this.intersects(entities[i]) && entities[i].collectable){
+                if (entities[i] != null && this.intersects(entities[i]) && entities[i].collectable){
                     if (ingredient_order.verify_ingredient(entities[i], this.inventory.length)){
                         this.inventory.push(entities[i])
                     } else {
@@ -37,7 +39,7 @@ class Cooking_Bowl extends Item {
             rect(this.inventory[i].x, this.inventory[i].y, 100, 100)
         }
 
-        if (this.game_time - this.stunned_time <= 50 && this.game_time > 250){
+        if (this.game_time - this.stunned_time <= 500 && this.game_time > 250){
             tint(255, 0, 0)
         }
         super.show()

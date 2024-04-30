@@ -1,7 +1,12 @@
-class Display {
+import { Escape_Menu } from "./escape_menu/escape_menu.js";
+
+export class Display {
     constructor(){
         this.loading = 0
         this.load_ready = false
+
+        this.menu_open = false
+        this.escape_menu = new Escape_Menu();
     }
 
     show(event_handler){ // user_input, text_box, cult_stats, character_manager, choice_display, image_manager,
@@ -19,7 +24,9 @@ class Display {
             rect(windowWidth/2, windowHeight/3, windowWidth*3/4 *this.loading/100, 50)
         } else if (!this.load_ready){
             text("Press Anything To Start", windowWidth/2, windowHeight/2)
-        } 
+        } else if (this.menu_open) {
+            this.escape_menu.show()
+        }
         
         else if (event_handler.take_user_keyboard){
             this.show_name_selection(user_input, event_handler.message)
@@ -32,10 +39,6 @@ class Display {
             cult_stats.show()
             choice_display.show()
         }
-
-        // if (cult_stats.name == ""){
-        //     this.show_name_selection(user_input)
-        // }
     }
 
     ready(){
@@ -51,6 +54,12 @@ class Display {
     update_loading(){
         if (this.loading < 100){
             this.loading += 1
+        }
+    }
+
+    trigger_click(event_handler) {
+        if (this.menu_open) {
+            this.escape_menu.trigger_click(event_handler);
         }
     }
 }

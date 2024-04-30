@@ -1,10 +1,12 @@
-class Cult_Stats{
+import {Cult_Stats_Display} from "./cult_stats_display.js"
+
+export class Cult_Stats{
     constructor(){
         this.stats = {
             "Encounters": 0,
             "Followers" : 0,
             "Popularity" : 0,
-            "Gold" : 0
+            "Gold" : 20
         }
 
         this.cult_stats_display = new Cult_Stats_Display(10, windowHeight/2, 20, 50)// mostly for dev log
@@ -37,7 +39,7 @@ class Cult_Stats{
         this.cult_stats_display.show(this)
         this.display_stat("Gold", 100, 50)
         this.display_stat("Popularity", 230, 50)
-        this.display_stat("Followers", 350, 50)
+        this.display_stat("Followers", 360, 50)
     }
 
     display_stat(stat, x, y){

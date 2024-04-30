@@ -1,4 +1,12 @@
-class Event_Handler{
+import { Character_Manager } from "./character_manager/character_manager.js";
+import {Cult_Stats} from "./cult_stats/cult_stats.js"
+import {Text_Box} from "./dialogue_classes/text_box.js"
+import {Choice_Display} from "./choice_classes/choice_display.js"
+import { Display } from "./display.js";
+import { Image_Manager } from "./images_manager/image_manager.js";
+import { Minigame_Manager } from "./minigame_manager.js";
+
+export class Event_Handler{
     constructor(){
         this.user_input = ""
         this.take_user_keyboard = false
@@ -35,9 +43,14 @@ class Event_Handler{
     mouse_input(mouse_x, mouse_y){
         this.choice_display.check_interaction(mouse_x, mouse_y, this)
         this.cult_stats.check_clicked(mouse_x, mouse_y)
+        this.display.trigger_click(this)
     }
 
     keyboard_input(key){
+        if (key == "Escape") {
+            this.display.menu_open = !this.display.menu_open
+        }
+
         if (!this.display.load_ready){
             getAudioContext().resume()
             if (this.display.loading >= 100){
@@ -121,5 +134,60 @@ class Event_Handler{
 
     randint(min, max) {
         return Math.floor(Math.random() * (max - min) ) + min;
+    }
+
+    save(save_file) {
+        var save_object = {}
+            save_object["characters"] = {}
+
+            var characters = event_handler.character_manager.characters
+
+            for (var key in characters) {
+                save_object["characters"][key] = {
+                    dialogue_path: characters[key].dialogue_path.original_dialogue,
+                    dialogue_number: characters[key].dialogue_number,
+                    already_responded_to: characters[key].already_responded_to
+                }
+            }
+            save_object["character_focus"] = event_handler.character_manager.character_focus
+            save_object["cult_stats"] = event_handler.cult_stats.stats
+
+            save_object["image_manager"] = {}
+
+            var images = event_handler.image_manager.images
+
+            for (var key in images) {
+                save_object["image_manager"][key] = {
+                    image_name : images[key].image_name,
+                    image_location : images[key].image_location
+                }
+            }
+
+            localStorage.setItem(save_file, JSON.stringify(save_object));
+    }
+
+    load(save_file) {
+        var retrieved = JSON.parse(localStorage.getItem(save_file))
+        event_handler.image_manager = new Image_Manager()
+        event_handler.text_box = new Text_Box()
+
+        var characters = event_handler.character_manager.characters
+
+        for (var key in retrieved["characters"]) {
+            characters[key].dialogue_path = new Dialogue(retrieved["characters"][key].dialogue_path);
+            characters[key].dialogue_number = retrieved["characters"][key].dialogue_number
+            characters[key].already_responded_to = retrieved["characters"][key].already_responded_to
+        }
+
+        var image_manager = event_handler.image_manager;
+
+        for (var key in retrieved["image_manager"]) {
+            image_manager.add_image(retrieved["image_manager"][key].image_name,
+                                    characters[retrieved["character_focus"]].images[retrieved["image_manager"][key].image_name],
+                                    retrieved["image_manager"][key].image_location)
+        }
+
+        event_handler.cult_stats.stats = retrieved["cult_stats"]
+        event_handler.character_manager.set_character_focus(retrieved["character_focus"], event_handler)
     }
 }

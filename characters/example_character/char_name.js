@@ -1,4 +1,8 @@
-class Character_Name extends Character{ // <- change Character_Name to your character's name! No spaces or special characters
+import { Character } from "../../character_manager/character.js"
+import { Char_Name_Choices } from "./char_name_choices.js"
+import { Dialogue } from "../../dialogue_classes/dialogue.js"
+
+export class Character_Name extends Character{ // <- change Character_Name to your character's name! No spaces or special characters
     constructor(){
         super("Character Name Here!") // <- change to be your own character name. You may use spaces and special characters here.
         this.set_possible_dialogue()

@@ -1,4 +1,6 @@
-class Image_Manager{
+import {Image_Display} from "./image.js"
+
+export class Image_Manager{
     constructor(){
         this.images = new Map()
         this.images["background"] = new Image_Display()
@@ -6,11 +8,11 @@ class Image_Manager{
     }
 
     add_image(image_name, image, image_location){
-        this.images[image_name] = new Image_Display(image, image_location, image_name)
+        this.images[image_name] = new Image_Display(image, image_location, image_name, this)
     }
 
     set_background(image){
-        this.images["background"] = new Image_Display(image, "middle", "background")
+        this.images["background"] = new Image_Display(image, "middle", "background", this)
     }
 
     change_location(previous_location, new_location){

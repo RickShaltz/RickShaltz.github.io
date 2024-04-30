@@ -1,4 +1,4 @@
-class Text_Box{
+export class Text_Box{
     constructor(){
         this.text = ""
         this.text_color = "rgba(255, 255, 255, 1)"

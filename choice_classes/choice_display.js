@@ -1,4 +1,7 @@
-class Choice_Display{
+import { Dialogue } from "../dialogue_classes/dialogue.js";
+import {Choice_Box} from "./choice_box.js"
+
+export class Choice_Display{
     constructor(){
         this.choices = []
     }

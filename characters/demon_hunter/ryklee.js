@@ -1,4 +1,8 @@
-class Ryklee extends Character{ // <- change Character_Name to your character's name! No spaces or special characters
+import { Character } from "../../character_manager/character.js"
+import { Ryklee_Choices } from "./ryklee_choices.js"
+import { Dialogue } from "../../dialogue_classes/dialogue.js"
+
+export class Ryklee extends Character{ // <- change Character_Name to your character's name! No spaces or special characters
     constructor(){
         super("Ryklee") // <- change to be your own character name. You may use spaces and special characters here.
         this.set_possible_dialogue()
@@ -143,6 +147,13 @@ class Ryklee extends Character{ // <- change Character_Name to your character's 
                 "(Choice)tea"
             ],
 
+            "yes_furniture": [
+                "Oh! Thank you.",
+                "{Speaker:}<ryklee_relations:add:3>She happily sits down on the chair. It cracks under the weight of her armour.",
+                "{Speaker:Ryklee}I'm thirsty. Do you have any tea?",
+                "(Choice)tea"
+            ],
+
             "no_tea": [
                 "No? Hmf. You really don't have anything to offer a guest like me?",
                 "(Choice)guest"
@@ -197,11 +208,18 @@ class Ryklee extends Character{ // <- change Character_Name to your character's 
             ],
 
             "<no_talk:is:1>end": [""], // end of interactions
+
+            // REACTIONS
+            // "trip_over_floor": [
+            //     "{Ryklee:middle}{Speaker:}"
+            // ]
         }
     }
 
     set_possible_response(){
-        this.possible_response_dialogue = []
+        this.possible_response_dialogue = [
+            //"<broken_floor:is:true>trip_over_floor"
+        ]
     }
 
     load_images(){

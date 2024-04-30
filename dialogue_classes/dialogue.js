@@ -1,4 +1,4 @@
-class Dialogue{
+export class Dialogue{
     constructor(dialogue){
         this.dialogue;
         this.requirements = [];

@@ -1,4 +1,4 @@
-class Cult_Stats_Display{
+export class Cult_Stats_Display{
     constructor(x, y, width, height){
         this.x = x 
         this.y = y

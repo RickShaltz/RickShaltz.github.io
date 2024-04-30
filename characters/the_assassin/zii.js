@@ -1,4 +1,8 @@
-class Zii extends Character{ // <- change Character_Name to your character's name! No spaces or special characters
+import { Zii_Choices } from "./zii_choices.js"
+import { Character } from "../../character_manager/character.js"
+import { Dialogue } from "../../dialogue_classes/dialogue.js"
+
+export class Zii extends Character{ // <- change Character_Name to your character's name! No spaces or special characters
     constructor(){
         super("Zii") // <- change to be your own character name. You may use spaces and special characters here.
         this.set_possible_dialogue()

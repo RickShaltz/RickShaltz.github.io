@@ -1,6 +1,6 @@
 import { Character_Choices } from "../../character_manager/character_choices.js";
 
-export class Transition_Choices extends Character_Choices{
+export class Death_Choices extends Character_Choices{
     constructor(){
         super()
     }

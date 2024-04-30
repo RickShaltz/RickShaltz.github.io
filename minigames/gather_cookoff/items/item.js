@@ -1,4 +1,6 @@
-class Item {
+
+
+export class Item {
     constructor(name, x, y, width, height, speed, image){
         this.name = name
         this.x = x
@@ -14,13 +16,8 @@ class Item {
         image(this.image, this.x, this.y)
     }
 
-    update(entities){
+    update(){
         this.y += this.speed
-        for (var i = entities.length-1; i >= 0; i --){
-            if (this.y > this.windowHeight){
-                entities.splice(i, 1)
-            }
-        }
     }
 
     set_image(image){

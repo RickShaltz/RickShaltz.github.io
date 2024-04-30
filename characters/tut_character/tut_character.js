@@ -1,4 +1,8 @@
-class Tut_Character extends Character{
+import { Tut_Character_Choices } from "./tut_character_choices.js"
+import { Character } from "../../character_manager/character.js"
+import { Dialogue } from "../../dialogue_classes/dialogue.js"
+
+export class Tut_Character extends Character{
     constructor(){
         super("Edlith")
         this.set_possible_dialogue()
@@ -16,7 +20,7 @@ class Tut_Character extends Character{
             "intro": ["{Speaker:Edlith}{Edlith:middle}Wakey wakey there, sleepy head. (Press spacebar to proceed)",
             "You might be wondering where you are.",
             "Where is your rolling red mansion? Your glorious trophies from your hundreds of years as a High Demon General?",
-            "Where are your glamorous pecks? Sadly, those have all been stripped from you.",
+            "Where are your glamorous pecs? Sadly, those have all been stripped from you.",
             "(Choice)why"],
 
             "why": ["Why? I'm sorry sir, but I haven't a clue!", 
@@ -51,7 +55,7 @@ class Tut_Character extends Character{
             "(Choice)okay"],
 
             "gather_humans": ["{Vase:fade_out}We could start a gathering of some kind, where humans can come and drop by for a chat.",
-            "That way, their prescence will fill up the essence jar. If they like it here, then they can come by again.",
+            "That way, their presence will fill up the essence jar. If they like it here, then they can come by again.",
             "They have a word for this on Earth. What was it again?",
             "Right! Cult!",
             "All we need now is a name for this cult, sir!",
@@ -71,7 +75,7 @@ class Tut_Character extends Character{
             "{teary_edlith:Edlith}But there is no time for that!",
             "(Go)edlith_final_1"],
 
-            "stern_stay": ["<edlith_relations:add:-1>I know you have high standards for stewards. I hope I can fulfill them.",
+            "stern_stay": ["I know you have high standards for stewards. I hope I can fulfill them.",
             "You have my undying loyalty.",
             "(Go)edlith_final_1"],
 

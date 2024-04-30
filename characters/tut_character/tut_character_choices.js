@@ -1,4 +1,6 @@
-class Tut_Character_Choices extends Character_Choices{
+import { Character_Choices } from "../../character_manager/character_choices.js";
+
+export class Tut_Character_Choices extends Character_Choices{
     constructor(){
         super()
     }

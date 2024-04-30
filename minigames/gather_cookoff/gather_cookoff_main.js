@@ -1,8 +1,13 @@
-class Gather_Cookoff_Main {
+import { Oven } from "./items/oven.js"
+import {Ingredient_Order} from "./ingredient_order.js"
+import {Item_Spawner} from "./item_spawner.js"
+import {Cooking_Bowl} from "./items/cooking_bowl.js"
+
+export class Gather_Cookoff_Main {
     constructor(allowed_time, spawn_rate, recipe_length){
         this.entities = []
         this.ingredient_order = new Ingredient_Order(recipe_length)
-        this.game_time = 0
+        this.start_time = new Date().getTime()
         this.total_game_time = allowed_time
         this.remaining_time = 0
         this.item_spawner = new Item_Spawner(spawn_rate)
@@ -13,6 +18,13 @@ class Gather_Cookoff_Main {
     }
 
     show(){
+        var game_time = new Date().getTime() - this.start_time;
+        var remaining_time = this.total_game_time - game_time;
+        if (remaining_time < 0) {
+            remaining_time = 0
+        }
+
+
         if (this.text_to_display != null){
             fill("white")
             text(this.text_to_display, windowWidth/2, windowHeight/2)
@@ -23,33 +35,36 @@ class Gather_Cookoff_Main {
         fill("white")
         textAlign(LEFT, CENTER)
         text("Score: " + this.ingredient_order.score, 50, 50)
-        text("Remaining Time: " + (this.remaining_time), 50, 75)
+        text("Remaining Time: " + (remaining_time/1000) + " seconds", 50, 75)
         textAlign(CENTER, CENTER)
     }
 
     update(){
-        this.game_time ++
-
-        if (this.game_time < 100){
+        var game_time = new Date().getTime() - this.start_time;
+        var remaining_time = this.total_game_time - game_time;
+        if (game_time < 1000){
             this.text_to_display = "Get Ready!"
-        } else if (this.game_time < 150){
+        } else if (game_time < 1500){
             this.text_to_display = "Set!"
-        } else if (this.game_time < 200){
+        } else if (game_time < 2000){
             this.text_to_display = "Go!"
         }
-        else if (this.remaining_time > 0){
+        else if (remaining_time > 0){
             this.text_to_display = null
-            this.update_list(this.entities, this.ingredient_order, this.game_time)
-            this.item_spawner.update(this.game_time, this.entities)
-        } else if (this.total_game_time - this.game_time > -50) {
+            for (var i = this.entities.length - 1; i >= 0; i --) {
+                this.entities[i].update(this.entities, this.ingredient_order, game_time)
+                if (this.entities[i].y > windowHeight + 50) {
+                    this.entities.splice(i, 1)
+                }
+            }
+            this.item_spawner.update(game_time, this.entities)
+        } else if (remaining_time > -1000) {
             this.text_to_display = "Game Over"
         } else {
             return "cook_off_score:" + this.ingredient_order.score
         }
-
-        this.remaining_time = this.total_game_time - this.game_time
-        if (this.remaining_time < 0){
-            this.remaining_time = 0
+        if (remaining_time < 0){
+            remaining_time = 0
         }
     }
 

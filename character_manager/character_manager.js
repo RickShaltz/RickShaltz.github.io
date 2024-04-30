@@ -1,4 +1,12 @@
-class Character_Manager{
+import { Tut_Character } from "../characters/tut_character/tut_character.js"
+import {Ryklee} from "../characters/demon_hunter/ryklee.js"
+import {Hodo} from "../characters/the_cook/hodo.js"
+import {Pollen} from "../characters/the_salesman/pollen.js"
+import {Kithan} from "../characters/the_rebel/kithan.js"
+import {Transition} from "../characters/transition/transition.js"
+import { Death } from "../characters/death/death.js"
+
+export class Character_Manager{
     constructor(){
         this.soundtrack_playing = null
 
@@ -11,9 +19,10 @@ class Character_Manager{
         this.characters['Edlith'] = new Tut_Character()
         this.characters['Ryklee'] = new Ryklee()
         this.characters['Hodo'] = new Hodo()
-        this.characters['Kithan'] = new Kithan()
+        // this.characters['Kithan'] = new Kithan()
         this.characters['Pollen'] = new Pollen()
         this.characters[""] = new Transition()
+        this.characters["Death"] = new Death()
 
         // add your character here!
         // example: this.characters["Character Name Here!"] = new Character_Name()
@@ -52,6 +61,8 @@ class Character_Manager{
 
         this.set_character_focus_reaction(random_character, event_handler)
     }
+
+
 
     set_character_focus_reaction(character_name, event_handler){
         var cult_stats = event_handler.cult_stats

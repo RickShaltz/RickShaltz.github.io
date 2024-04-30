@@ -1,3 +1,8 @@
+// ESM
+// import { stringify, parse} from 'https://cdn.jsdelivr.net/npm/flatted@3.2.7/+esm';
+
+import { Event_Handler } from "./event_handler.js";
+
 function setup(){
     createCanvas(windowWidth, windowHeight);
     background(30,30,30)
@@ -12,7 +17,25 @@ function setup(){
     frameRate(60)
 
     event_handler = new Event_Handler();
-}
+    // if (localStorage) {
+    //     event_handler = localStorage.getItem('save_file');
+    //     if (event_handler == null) {
+    //         event_handler = new Event_Handler();
+    //     }
+    //     console.log("local storage is supported");
+    // } else {
+    //     console.log('local storage not supported');
+    //     event_handler = new Event_Handler();
+    // }
+    // console.log(event_handler)
+}  
+
+// function save_file() {
+//     localStorage.setItem('save_file', event_handler
+//      );
+
+//      console.log("SAVED!");
+// }
 
 // refit the screen when resized
 function windowResized() {
@@ -33,7 +56,11 @@ function mouseClicked(){
 
 // send keyboard input to the display
 function keyPressed(){
-    event_handler.keyboard_input(key)
+    event_handler.keyboard_input(key);
+
+    // if (key == 's') {
+    //     save_file();
+    // }
 }
 
 // Stop the screen from scrolling when spacebar is hit
@@ -43,3 +70,10 @@ window.onkeydown = function(e) {
         return !(e.keyCode == 32);
     }
 };
+
+// This will fix the module problem
+window.setup = setup;
+window.draw = draw;
+window.windowResized = windowResized
+window.mouseClicked = mouseClicked
+window.keyPressed = keyPressed

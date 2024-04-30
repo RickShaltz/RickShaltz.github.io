@@ -1,4 +1,4 @@
-class Character_Choices{
+export class Character_Choices {
     constructor(){
         
     }

@@ -1,9 +1,13 @@
-class Minigame_Manager {
+import { Gather_Cookoff_Main } from "./minigames/gather_cookoff/gather_cookoff_main.js"
+import { Vampire_Dodge } from "./minigames/vampire_dodge/vampire_dodge.js"
+
+export class Minigame_Manager {
     constructor(){
         this.active_minigame = null
         this.dialogue_after = null
         this.minigames = {
-            "gather_cookoff_easy": new Gather_Cookoff_Main(5000, 50, 3)
+            "gather_cookoff_easy": new Gather_Cookoff_Main(80*1000, 1000, 3),
+            "vampire_dodge_easy": new Vampire_Dodge(3000, 1000, 5)
         }
     }
 

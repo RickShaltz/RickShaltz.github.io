@@ -1,4 +1,6 @@
-class Ryklee_Choices extends Character_Choices{ // <- Change Char_Name to your character's name
+import { Character_Choices } from "../../character_manager/character_choices.js";
+
+export class Ryklee_Choices extends Character_Choices{ // <- Change Char_Name to your character's name
     constructor(){
         super()
     }
@@ -41,13 +43,14 @@ class Ryklee_Choices extends Character_Choices{ // <- Change Char_Name to your c
                 break;
             case "furniture":
                 hash = {
-                    "No" : "no_furniture"
+                    "No" : "no_furniture",
+                    "Yes" : "<chairs:is:true>yes_furniture"
                 }
                 break;
             case "tea":
                 hash = {
                     "No" : "no_tea",
-                    "No, but I have cookies": "have_cookies"
+                    "No, but I have cookies": "<chef:more:1>have_cookies"
                 }
                 break;
             case "guest":

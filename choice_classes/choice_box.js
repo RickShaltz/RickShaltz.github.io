@@ -1,4 +1,4 @@
-class Choice_Box{
+export class Choice_Box{
     constructor(text, if_triggered_text, x, y, width, height, box_color, text_color){
         this.text = text
         this.if_triggered_text = if_triggered_text
@@ -23,7 +23,12 @@ class Choice_Box{
     show(){
         fill(this.box_color)
         rect(this.x, this.y, this.width, this.height)
-        fill("rgba(0, 0, 0, 0.5)")
+
+        if (this.check_clicked(mouseX, mouseY)) {
+            fill("rgba(80, 80, 80, 0.5)")
+        } else {
+            fill("rgba(0, 0, 0, 0.5)")
+        }
         rect(this.x, this.y, this.width - 10, this.height-10)
 
         fill(this.text_color)

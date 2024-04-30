@@ -1,4 +1,6 @@
-class Hodo_Choices extends Character_Choices{ // <- Change Char_Name to your character's name
+import { Character_Choices } from "../../character_manager/character_choices.js";
+
+export class Hodo_Choices extends Character_Choices{ // <- Change Char_Name to your character's name
     constructor(){
         super()
     }

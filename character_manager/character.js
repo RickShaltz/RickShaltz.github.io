@@ -1,4 +1,7 @@
-class Character{
+import { Dialogue } from "../dialogue_classes/dialogue.js"
+import { Character_Choices } from "./character_choices.js"
+
+export class Character{
     constructor(name){
         this.name = name
         this.audio = null
@@ -104,6 +107,22 @@ class Character{
                     var text = dialogue_obj.dialogue
                     event_handler.allow_keyboard_input(text.slice(10, text.indexOf("=")), text.slice(text.indexOf("=") + 1, text.length))
                     break;
+                case dialogue_obj.dialogue.slice(0, 10) == "(Autosave)":
+                    var cut_dialogue = dialogue_obj.dialogue.slice(10, dialogue_obj.dialogue.length)
+                    this.set_dialogue(event_handler, cut_dialogue)
+                    event_handler.save('autosave')
+                    break;
+                case dialogue_obj.dialogue.slice(0, 15) == "(Load_Autosave)":
+                    var cut_dialogue = dialogue_obj.dialogue.slice(15, dialogue_obj.dialogue.length)
+                    this.set_dialogue(event_handler, cut_dialogue)
+                    event_handler.load('autosave')
+                    break;
+                case dialogue_obj.dialogue.slice(0, 7) == "(Death)":
+                    this.fade = 0
+                    this.set_dialogue_path(dialogue_obj.dialogue.slice(7, dialogue_obj.dialogue.length))
+                    character_manager.set_character_focus("Death", event_handler)
+                    image_manager.fade_images()
+                    break;
                 // for minigames only
                 case dialogue_obj.dialogue.slice(0, 10) == "(Initiate:":
                     var minigame = dialogue_obj.dialogue.slice(10, dialogue_obj.dialogue.indexOf(")"))
@@ -134,9 +153,10 @@ class Character{
                 path = i
             }
         }
-        this.dialogue_path = new Dialogue(path)
+        this.dialogue_path = new Dialogue(path)// cont
         this.dialogue_number = 0
     }
+
 
     next_dialogue(event_handler){
         this.dialogue_number++

@@ -1,4 +1,8 @@
-class Kithan extends Character{ // <- change Character_Name to your character's name! No spaces or special characters
+import { Kithan_Choices } from "./kithan_choices.js"
+import { Character } from "../../character_manager/character.js"
+import { Dialogue } from "../../dialogue_classes/dialogue.js"
+
+export class Kithan extends Character{ // <- change Character_Name to your character's name! No spaces or special characters
     constructor(){
         super("Kithan") // <- change to be your own character name. You may use spaces and special characters here.
         this.set_possible_dialogue()
@@ -50,164 +54,170 @@ class Kithan extends Character{ // <- change Character_Name to your character's 
      * Note: choose either more or less. They are inclusive.
      */
     set_possible_dialogue(){
-        this.dialogue_path = new Dialogue("intro") // make sure this is the dialogue path you want to start on
-        this.possible_dialogue = {
-            "intro": ["{Speaker:???}{Kithan:middle}Good morning, my fellow proletariot. I have heard news of this cult you are starting and I wish to participate.", 
-            "{Speaker:Kithan}M'name is Kithan Thrihold. I believe we can become very good friends.",
-            "You know, I actually dislike the idea of cults. Hundreds of followers gathered under a single, highly charismatic figure.",
-            "It isn't a very good leadership system, as once the leader dies, there'll be no one left to replace him.",
-            "Often after one generation, the cult dies off- unless someone takes their place.",
-            "Say, if I killed you right here, do you reckon your followers will join me?",
-            "(Choice)kill_you_here"], // <- since there is currently no more for this character, put up a loop.
-            
-            "would_join": [
-                "Ha, you don't have a lot of faith in your followers, do you?",
-                "<kithan_relations:add:-5>You have to be strong. You have to believe in your followers. If you want to be a successful leader, that is.",
-                "(Go)kithan_cont_1"
+        this.dialogue_path = new Dialogue("intro") // make sure this is the dialogue path you want to start on <encounters:more:3>
+        this.possible_dialogue = { // <encounters:more:3>
+            "intro": ["(Autosave){Speaker:???}{Kithan:middle}Rah. Rah! RAH!",
+            "{Speaker:}The stranger sniffs the air violently and smiles.",
+            "{Speaker:???}I smell blood. Free range, GMO free, and with no extra additives. Where are you, my tasty treat?",
+            "<shake:set:5>COME OUT! I ONLY WANT TO DEVOUR YOU AS PAINFULLY AS POSSIBLE!",
+            "<shake:set:0>{Speaker:}The stranger is drooling. His bloodshot eyes dart around the place, but he hasn't seemed to notice you yet.",
+            "What do you do?",
+            "(Choice)vampire_encounter"],
+
+            "greet": [
+                "{Speaker:}His eyes lock onto you after hearing your words.",
+                "{Speaker:???}Ah, there you are!",
+                "{Speaker:}He rushes towards you and bites your face off!",
+                "(Death)"
             ],
 
-            "never_join": [
-                "<kithan_relations:add:5>Good! That's what I like to hear!",
-                "A strong leader must have faith in their followers. Maybe you'll be a good person to follow after all.",
-                "(Go)kithan_cont_1"
+            "run_away": [
+                "<shake:set:5>{Speaker:}You take off sprinting in the other direction. He takes off after you, running faster than any land animal you've ever seen.",
+                "<shake:set:0>You end up with your back to a wall.",
+                "{Speaker:???}There is nowhere to run to now, little weasle! Prepare yourself to be dined upon!",
+                "{Speaker:}He lunges towards you!",
+                "(Choice)vampire_lunge" // Implement timed events?
             ],
 
-            "threaten_join": [
-                "No, I have no ill intentions. Unless you're too weak, of course. It's only natural for a shark to devour those who he sees as prey.",
-                "(Go)kithan_cont_1"
+            "hide_behind_chair": [
+                "{Speaker:}You hide behind a chair. The stranger sniffs the air and stomps towards you.",
+                "<shake:set:5>He grabs the chair.",
+                "<shake:set:0>And tosses it away.",
+                "{Speaker:???}Found you. RAH!",
+                "He lunges towards you!",
+                "(Choice)vampire_lunge"
             ],
 
-            "kithan_cont_1": [
-                "Every cult leader has something special about them. Tell me, what is special about you?",
-                "(Choice)special"
+            "fight": [
+                "{Speaker:}You raise your fists. You were a high demon general, after all! Surely you could take a monster or two?",
+                "The creature lunges directly at you. You throw out your fist, striking him in the nose and sending him flying to the side!",
+                "<hand_broken:true>Unfortunately, your mortal fists crack underneath the pressure of a literal monster. Pain flares up in your hand.",
+                "As you are trying to hold in the tears, the creature gets back onto its feet.",
+                "{Speaker:???}<shake:set:5>YOU DARE DENY ME OF MY AFTERNOON SNACK? RAHHHH!",
+                "<shake:set:0>The beast charges you once again. Prepare to dodge!",
+                "(Initiate:vampire_dodge_easy)(Go)after_vampire_dodge"
             ],
 
-            "not_special": [
-                "<kithan_relations:add:-5>Not special? My friend, every word we exchange is about giving and taking. You are trying to convince me to join your cult, are you not?",
-                "When you look at yourself, do you feel disgusted? Do you feel inadequate? That is what your answer makes me think.",
-                "Everyone is special, whether they like it or not. You just don't have the confidence within yourself to tell me what makes you special.",
-                "(Go)me_special"
+            "dodge": [
+                "{Speaker:}You try to dodge the beast. You were on the demon track team, after all.",
+                "<broken_floor:is:true>Just as you prepare to dodge, you trip over the hole in the ground and fall.",
+                "<broken_floor:is:true>The monster bites your face off!",
+                "<broken_floor:is:true>(Death)",
+                "He lunges towards you, ready to devour your limbs! Prepare to dodge!",
+                "(Initiate:vampire_dodge_easy)(Go)after_vampire_dodge"
             ],
 
-            "abyss_special": [
-                "You are a demon? That indeed is special! I could never have expected this!",
-                "Prove to me your worth, demon. Show me your powers.",
-                "(Choice)demon_powers"
+            "civilized": [
+                "{Speaker:???}No.",
+                "{Speaker:}The stranger lunges forward and bites your face off!",
+                "(Death)"
             ],
 
-            "fake_magic": [
-                "{Speaker:}You shout 'magic' as you wave your hands around.",
-                "Kithan looks at you with a puzzled face.",
-                "{Speaker:Kithan}What are you doing?",
-                "(Choice)doing_magic"
+            "close_eyes": [
+                "{Speaker:}You close your eyes. If you can't see him, then he can't see you.",
+                "He bites your face off.",
+                "(Death)"
             ],
 
-            "doing_magic": [
-                "Impressive. I'm not too entirely sure what you did since I'm no magic user myself.",
-                "Whatever it was, it must've been special.",
-                "(Go)me_special"
+            "face_bitten": [
+                "<broken_floor:is:true>{Speaker:}As you try to dodge the onslaught of attacks, you accidentally trip over the hole in the ground.",
+                "<broken_floor:is:false>{Speaker:}As you try to dodge the onslaught of attacks, you lose your footing and trip.",
+                "The monster catches you and bites your face off!",
+                "(Death)"
             ],
 
-            "backflip": [
-                "I didn't know backflips were unique to demons, but after seeing you preform that backflip so vigorously, I believe you.",
-                "That really does make you special.",
-                "(Go)me_special"
+            "after_vampire_dodge" : [
+                "<number_of_lives_survived:less:1>(Go)face_bitten", 
+                "{Speaker:}The monster huffs and puffs, sweat dribbling from their forehead.",
+                "{Speaker:???}I'm going to... munch... on... your...",
+                "{Speaker:}The monster collapses on the ground.",
+                "You watch in dismay as the monster slowly transforms. Its claws disappear back into its hand. The once bloodred eyes lose their tint.",
+                "{Kithan:middle}...",
+                "{Speaker:???}Ugh? Where... where am I?",
+                "{Speaker:}The stranger notices your presence.",
+                "{Speaker:???}AH! Who are you?",
+                "(Choice)who_are_you"
             ],
 
-            "no_show_magic": [
-                "<kithan_relations:add:-5>Ah, that's rather disappointing. You are just another fraud, like the rest of them.",
-                "I don't know what I expected from a cult leader such as you. All talk, no substance, as usual.",
-                "You decieve your followers with lies, hoping that in the end, they'll choose to help you instead of themselves, is that it?",
-                "You are the worst kind of selfish evil, but I suppose that makes you even a little bit special.",
-                "(Go)me_special"
+            "i_am_demon": [
+                "A-a-aa-a-a-a-a-a-a-a d-d-d-d-d-d-d-emon overl-l-l-l-lord?",
+                "AHHH! I'm so sorry! I didn't mean to intrude upon your abode! Please, spare my life!",
+                "{Speaker:}He grovels on the ground, sobbing.",
+                "(Choice)question_him"
             ],
 
-            "ears_special": [
-                "Really now? That is quite the interesting recessive gene you have there. Humans haven't had that for nearly three decades now.",
-                "Are you perhaps some old human that simply looks rather young? Or are you something else entirely?",
-                "Are you something ancient?",
-                "(Choice)are_you_ancient"
+            "i_am_joe": [ // How the hell do you spell anhillator? CHECK THIS! (And how do you spell domecile?)
+                "J-J-J-J-Joe, the anhillator? Tales of your massacres have spread across the realms!",
+                "AHHHHH! I'm so sorry! I didn't mean to intrude upon your private domecile! Please, spare my life!",
+                "{Speaker:}He grovels on the ground, sobbing.",
+                "(Choice)question_him"
             ],
 
-            "back_hurts": [
-                "Ah, you look a lot younger than you are.",
-                "Of course, I would empathize with your back pain if I could.",
-                "But I cannot.",
-                "(Go)me_special"
+            "kick_him": [
+                "{Speaker:}You kick him while he's down, practically curb stomping him.",
+                "<shake:set:5>{Speaker:???}Agh! Ow! I don't know what I did to you, but please stop! I'm sorry!",
+                "<shake:set:0>{Speaker:}He grovels on the ground, sobbing.",
+                "(Choice)question_him"
             ],
 
-            "cook_special": [
-                "You cook? That is a strange combination of occupations, I must say.",
-                "But it does certainly make you special in that sense.",
-                "(Go)me_special"
+            "ask_name_aggressive": [
+                "{Speaker:???}EEEP! Kithan! My name is Kithan! Don't hurt me! I swear on my life, I don't remember how I ended up here!",
+                "{Speaker:Kithan}The last thing I remember was that I was working my minimum wage job cleaning washrooms for the king.",
+                "And then bam, it all went black and I ended up here.",
+                "T-this has been happening more and more recently. I... I don't know what's happening to me.",
+                "(Choice)ask_kithan"
             ],
 
-            "me_special": [
-                "But, do you know why I am special?",
-                "I'm not so sure myself, really. I've spent a few years searching for that little key within myself.",
-                "Can I let you in on a little secret?",
-                "(Choice)listen_secret"
+
+            "ask_name": [
+                "{Speaker:???}M-my name is Kithan. Kithan Wiremoth. I... I can't remember how I got here.",
+                "{Speaker:Kithan}The last thing I remember was that I was working my minimum wage job for the king, cleaning washrooms.",
+                "And then bam, it all went black and I ended up here.",
+                "T-this has been happening more and more recently. I... I don't know what's happening to me.",
+                "(Choice)ask_kithan"
             ],
 
-            "bad_fashion": [
-                "So you are humourous. Good. Good. Just make sure you don't joke around with the wrong sort of people.",
-                "Some individuals aren't so nice to those who run their mouths.",
-                "{Speaker:}Kithan gives you a nice smile.",
-                "{Speaker:Kithan}(Go)listen_secret"
+            "explain_yourself": [
+                "{Speaker:Kithan}I... I was? Me? I can't hurt a fly! No, no, you must have gotten me mixed up with someone else.",
+                "(Choice)denial"
             ],
 
-            "listen_secret": [
-                "I used to work for a rebellion. They called themselves the Eye of the Righteous. It was a bad name, I know.",
-                "They claimed that they were fighting for the proletariots, fighting to free the poor from the dreaded grasp of the King.",
-                "But really, I didn't care for their cause nor their goals. The proletariots will always be enslaved no matter who's ruling.",
-                "It's simply a fact of life: there'll always be someone at the bottom of the pyramid.",
-                "All I wanted to do was to investigate humanity.",
-                "You see, each human always puts up a mask of sorts. They refuse to take this mask off no matter who they're talking to.",
-                "Their friends, their enemies, their family- they will never see this human's true face. This mask is a shield that they use to keep themselves safe.",
-                "This mask can change and shift, but it can never be removed, not even by the human themselves.",
-                "The only time it is taken off is the moment right before their death.",
-                "And so, that is what I investigate.",
-                "Everyone, just as they are about to die, will reveal their true selves, even if only for a moment.",
-                "I find this very curious.",
-                "While working in the rebellion, I watched hundreds of people experience their last moments. I have witnessed their true selves.",
-                "Humanity is ugly in its heart.",
-                "Eventually, that rebellion failed and the King had everyone executed.",
-                "Everyone. But. Me.",
-                "(Choice)hug" 
+            "yes_mixup": [
+                "{Speaker:Kithan}Hew, I'm glad you understand now.",
+                "My memory's a bit fuzzy, so can you remind me how I got here?",
+                "No...",
+                "What if you kidnapped me? No, you certainly kidnapped me!",
+                "I'm sorry, but all my relatives are dead or have disowned me, so you're going to have a lot of trouble getting a ransom out of me.",
+                "(Choice)kidnapper"
             ],
 
-            "hug": [
-                "Back off. What are you trying to do?",
-                "{Speaker:}You hug him anyways.",
-                "<kithan_relations:add:10>{Speaker:Kithan}...",
-                "That was different. I felt that.",
-                "I didn't think I could feel something like that. Not after...",
-                "...",
-                "(Go)kithan_visit_end",
+            "no_mixup": [
+                "{Speaker:Kithan}Why are you making all these wild accusations? Y-you're just trying to confuse me, right?",
+                "Why would you be trying to confuse me?",
+                "No...",
+                "What if you kidnapped me? No, you certainly kidnapped me!",
+                "I'm sorry, but all my relatives are dead or have disowned me, so you're going to have a lot of trouble getting a ransom out of me.",
+                "(Choice)kidnapper"
             ],
 
-            "sorry": [
-                "<kithan_relations:add:3>You do not need to feel sympathy for me. I do not feel sympathy for anyone else.",
-                "I have lost the ability to feel sympathy long ago. I've done things that you can not imagine.",
-                "(Go)kithin_visit_end"
+            "kick_him_extra": [
+                "{Speaker:Kithan}<shake:set:5>AGH! AGH! OW! Why are you doing this? I didn't do anything wrong!",
+                "<shake:set:0>Are you some kind of kidnapper or something?",
+                "I'm sorry, but all my relatives are dead or have disowned me, so you're going to have a lot of trouble getting a ransom out of me.",
+                "(Choice)kidnapper"
             ],
 
-            "report_threat": [
-                "<kithan_relations:add:-15>I see. You are King lover.",
-                "Personally I find that disgusting, but that is just me as an individual. I see that we are not compatible in the slightest.",
-                "I will be gone now. Do not let me see you again or... I won't be responsible for my actions.",
-                "(End)end"
+            "nice_to_meet_you": [
+                "{Speaker:Kithan}Y-yeah, it's nice to meet you too. Would you mind explaining to me why I suddenly ended up here? I can't seem to remember.",
+                "Are you perhaps a kidnapper? I'm sorry, but all my relatives are dead or have disowned me, so you're going to have a lot of trouble getting a ransom out of me.",
+                "(Choice)kidnapper"
             ],
 
-            "kithan_visit_end": [
-                "You're quite the interesting leader.",
-                "Talking to you has proven quite entertaining. Maybe there are some wisdoms that you hold that would prove valuable.",
-                "I have to get moving now. The King's hunters will track me down soon.",
-                "Until we meet again.",
-                "<kithan_relations:more:10>... Thank you.",
-                "(End)end"
+            "yes_kidnapped": [
+
             ],
 
+            // "(Go)example_dialogue_path"]
             "<no_talk:is:1>end": [""],
         }
     }

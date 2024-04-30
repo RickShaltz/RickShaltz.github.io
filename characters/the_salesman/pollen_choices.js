@@ -1,4 +1,6 @@
-class Pollen_Choices extends Character_Choices{ // <- Change Char_Name to your character's name
+import { Character_Choices } from "../../character_manager/character_choices.js";
+
+export class Pollen_Choices extends Character_Choices{ // <- Change Char_Name to your character's name
     constructor(){
         super()
     }
@@ -48,7 +50,7 @@ class Pollen_Choices extends Character_Choices{ // <- Change Char_Name to your c
 
             case "services":
                 hash = {
-                    "Fix the floor (-50G)" : "<broken_floor:is:true><Gold:more:50>fix_floor",
+                    "Fix the floor (-20G)" : "<broken_floor:is:true><Gold:more:20>fix_floor",
                     "Build some chairs (-20G)" : "<chairs:not:true><Gold:more:20>buy_chairs",
                     "Decorate this place like a tavern (-90G)": "<Gold:more:90><decorate:not:tavern>decorate_tavern",
                     //"Decorate this place like a dungeon (-70G)": "<Gold:more:70><decorate:not:dungeon>decorate_dungeon",

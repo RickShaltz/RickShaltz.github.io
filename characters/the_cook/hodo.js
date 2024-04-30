@@ -1,4 +1,8 @@
-class Hodo extends Character { // <- change Character_Name to your character's name! No spaces or special characters
+import { Hodo_Choices } from "./hodo_choices.js"
+import { Character } from "../../character_manager/character.js"
+import { Dialogue } from "../../dialogue_classes/dialogue.js"
+
+export class Hodo extends Character { // <- change Character_Name to your character's name! No spaces or special characters
     constructor(){
         super("Hodo") // <- change to be your own character name. You may use spaces and special characters here.
         this.set_possible_dialogue()
@@ -52,7 +56,7 @@ class Hodo extends Character { // <- change Character_Name to your character's n
     set_possible_dialogue(){
         this.dialogue_path = new Dialogue("intro") // make sure this is the dialogue path you want to start on
         this.possible_dialogue = {
-            "intro": ["{Speaker:???}{Hodo:middle}Ah, it appears I have arrived. I must say the directions on your posters are not very clear.",
+            "intro": ["<hodo_met:add:1>{Speaker:???}{Hodo:middle}Ah, it appears I have arrived. I must say the directions on your posters are not very clear.",
             "{Speaker:}He sniffs the air.", "{Speaker:???}Why do I not smell anything?", 
             "<advertisement_strategy:is:secret_cookies>Where are the promised cookies?",
             "Where is the scent of food? Don't tell me... you don't have any food?",
@@ -199,14 +203,21 @@ class Hodo extends Character { // <- change Character_Name to your character's n
                 "<hodo_relations:less:-21>I do not wish to see your dishonorable being again. Goodbye.",
                 "(End)end"
             ],
-            // remember to add a do not give
 
             "<no_talk:is:1>end": [""],
+
+            // Reactions
+            "trip_over_floor": ["{Hodo:middle}{Speaker:}A man stumbles into your cult! He immediately trips over the broken floor!",
+            "{Speaker:???}Ah! Why is there a random hole in the floor?",
+            "{Speaker:}After rubbing his ankle in agony, he collects himself.",
+            "(End_Reaction)"]
         }
     }
 
     set_possible_response(){
-        this.possible_response_dialogue = []
+        this.possible_response_dialogue = [
+            "<broken_floor:is:true>trip_over_floor"
+        ]
     }
 
     load_images(){

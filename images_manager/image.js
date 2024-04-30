@@ -1,14 +1,15 @@
-class Image_Display {
-    constructor (image, image_location, image_name){
+export class Image_Display {
+    constructor (image, image_location, image_name, image_manager){
         this.x;
         this.y;
         this.image = image
         this.image_name = image_name
+        this.image_location = image_location
         this.fade = 0
         this.fade_level = 5
 
         if (this.image != null){
-            this.set_location(image_location, null, null)
+            this.set_location(image_location, image_manager.images, image_manager)
         }
     }
 
@@ -30,6 +31,9 @@ class Image_Display {
 
     set_location(image_location, images, image_manager){
         this.y = windowHeight/2
+        this.image_location = image_location
+
+        console.log(image_location)
 
         if (image_location == "left"){
             this.x = windowWidth/3
@@ -40,8 +44,10 @@ class Image_Display {
         } else if (image_location == "middle") {
             this.x = windowWidth/2;
         } else {
+            // cont 
             image_manager.change_location(this.image_name, image_location)
             this.image = images[image_location]
+            this.image_location = "middle"
         }
     }
 }

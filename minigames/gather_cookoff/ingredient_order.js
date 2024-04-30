@@ -1,4 +1,9 @@
-class Ingredient_Order {
+import { Sugar } from "./items/sugar.js"
+import { Butter } from "./items/butter.js"
+import { Eggs } from "./items/eggs.js"
+import { Flour } from "./items/flour.js"
+
+export class Ingredient_Order {
     constructor(recipe_length){
         this.ingredients = []
         this.score = 0

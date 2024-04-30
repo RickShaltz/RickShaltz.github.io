@@ -1,22 +1,22 @@
-import { Transition_Choices } from "./transition_choices.js"
+import { Death_Choices } from "./death_choices.js"
 import { Character } from "../../character_manager/character.js"
 import { Dialogue } from "../../dialogue_classes/dialogue.js"
 
-export class Transition extends Character{
+export class Death extends Character{
     constructor(){
-        super("")
+        super("Death")
         this.set_possible_dialogue()
         this.set_colors()
         this.load_images()
         this.load_audio()
 
-        this.character_choices = new Transition_Choices()
+        this.character_choices = new Death_Choices()
     }
 
     set_possible_dialogue(){
-        this.dialogue_path = new Dialogue("in_transition")
+        this.dialogue_path = new Dialogue("dead")
         this.possible_dialogue = {
-            "in_transition" : ["{Speaker:}(Spacebar to see the next client)", "(Next_Char)in_transition"],
+            "dead": ["{Speaker:}You have died.", "Retry?", "(Load_Autosave)dead"]
         }
     }
 
