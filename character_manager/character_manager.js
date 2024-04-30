@@ -22,7 +22,7 @@ export class Character_Manager{
         // this.characters['Kithan'] = new Kithan()
         this.characters['Pollen'] = new Pollen()
         this.characters[""] = new Transition()
-        this.characters["Death"] = new Death()
+        // this.characters["Death"] = new Death()
 
         // add your character here!
         // example: this.characters["Character Name Here!"] = new Character_Name()
